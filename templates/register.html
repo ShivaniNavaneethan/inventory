@@ -1,16 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Register</h2>
-<form method="post">
-    <div class="mb-3">
-        <label class="form-label">Username</label>
-        <input type="text" name="username" class="form-control" required>
+<div class="row justify-content-center align-items-center" style="height: 70vh;">
+    <div class="col-md-5">
+        <div class="card shadow-lg">
+            <div class="card-body p-5">
+                <h3 class="card-title text-center mb-4">Register</h3>
+                <form method="post">
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <input type="text" name="username" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Register</button>
+                </form>
+                <div class="text-center mt-3">
+                    <a href="/login">Already have an account? Login here.</a>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="mb-3">
-        <label class="form-label">Password</label>
-        <input type="password" name="password" class="form-control" required>
-    </div>
-    <button type="submit" class="btn btn-success">Register</button>
-    <a href="/login" class="btn btn-link">Login</a>
-</form>
+</div>
 {% endblock %} 

@@ -1,22 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="mb-0">Live Stock</h2>
-    <div class="btn-group">
-        <a href="/export_pdf" class="btn btn-primary"><i class="fas fa-file-pdf me-2"></i>Export PDF</a>
-        <a href="/export_csv" class="btn btn-secondary"><i class="fas fa-file-csv me-2"></i>Export CSV</a>
-    </div>
+    <h2 class="mb-0">Navabarath Stock</h2>
 </div>
 
 <div class="mb-3">
     <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#addComponentForm" aria-expanded="false" aria-controls="addComponentForm">
-        <i class="fas fa-plus me-2"></i> Add New Component
+        <i class="fas fa-plus me-2"></i> Add New Navabarath Component
     </button>
 </div>
 
 <div class="collapse" id="addComponentForm">
     <div class="card card-body mb-4 bg-light-subtle">
-        <h4>Add a New Component</h4>
+        <h4>Add a New Component to Navabarath</h4>
         <form method="post" action="{{ url_for('add_component') }}">
             <div class="row">
                 <div class="col-md-6 mb-3">
@@ -29,21 +25,17 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4 mb-3">
+                <div class="col-md-6 mb-3">
                     <label class="form-label">Quantity</label>
                     <input type="number" name="quantity" class="form-control" required min="0">
                 </div>
-                <div class="col-md-4 mb-3">
+                <div class="col-md-6 mb-3">
                     <label class="form-label">Status</label>
                     <select name="status" class="form-select" required>
                         <option value="unused">Unused</option>
                         <option value="used">Used</option>
                         <option value="defect">Defect</option>
                     </select>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label class="form-label">Location</label>
-                    <input type="text" name="location" class="form-control">
                 </div>
             </div>
             <div class="row">
@@ -64,6 +56,7 @@
                 <label class="form-label">Notes</label>
                 <textarea name="notes" class="form-control"></textarea>
             </div>
+            <input type="hidden" name="location" value="Navabarath">
             <button type="submit" class="btn btn-primary">Add Component</button>
         </form>
     </div>
@@ -88,7 +81,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for component in livestock_components %}
+            {% for component in navabarath_components %}
             <tr {% if component.quantity < 5 %}class="table-danger"{% endif %}>
                 <td>{{ loop.index }}</td>
                 <td>{{ component.id }}</td>
@@ -110,7 +103,7 @@
             </tr>
             {% else %}
             <tr>
-                <td colspan="12" class="text-center">No components found in Live Stock.</td>
+                <td colspan="12" class="text-center">No components found for Navabarath.</td>
             </tr>
             {% endfor %}
         </tbody>

@@ -1,12 +1,40 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="row justify-content-center mt-5">
-    <div class="col-md-6">
-        <div class="card text-center shadow-lg mb-4">
-            <div class="card-body">
-                <h3 class="card-title mb-3">Inventory Management</h3>
-                <p class="card-text">View and manage inventory stocks.</p>
-                <a href="/inventory" class="btn btn-primary btn-lg w-100">Go to Inventory</a>
+<div class="d-flex justify-content-between align-items-center mt-5 mb-4">
+    <h1 class="display-4 fw-bold text-primary mb-0">Welcome</h1>
+    <a href="{{ url_for('logout') }}" class="btn btn-danger"><i class="fas fa-sign-out-alt me-2"></i>Logout</a>
+</div>
+<p class="lead text-muted mb-4">Manage your inventory efficiently and effectively.</p>
+<hr>
+
+<div class="row g-4 py-4">
+    <div class="col-md-6 col-lg-4">
+        <div class="card text-center h-100">
+            <div class="card-body p-4">
+                <i class="fas fa-boxes fa-3x text-primary mb-3"></i>
+                <h4 class="card-title">Live Stock</h4>
+                <p class="card-text text-muted">View and manage your current inventory items.</p>
+                <a href="/inventory" class="btn btn-primary mt-3">View Inventory</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <div class="card text-center h-100">
+            <div class="card-body p-4">
+                <i class="fas fa-industry fa-3x text-success mb-3"></i>
+                <h4 class="card-title">Navabarath</h4>
+                <p class="card-text text-muted">Manage Navabarath specific inventory.</p>
+                <a href="/navabarath" class="btn btn-success mt-3">View Navabarath</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <div class="card text-center h-100">
+            <div class="card-body p-4">
+                <i class="fas fa-chart-line fa-3x text-info mb-3"></i>
+                <h4 class="card-title">Analysis</h4>
+                <p class="card-text text-muted">View inventory analytics and reports.</p>
+                <a href="/inventory_analysis" class="btn btn-info mt-3">View Analysis</a>
             </div>
         </div>
     </div>

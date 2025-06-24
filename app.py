@@ -43,12 +43,17 @@ login_manager.login_view = 'login'
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+@app.context_processor
+def inject_now():
+    return {'now': datetime.datetime.utcnow()}
+
 with app.app_context():
     db.create_all()
 
 @app.route('/')
-@login_required
 def index():
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
     return render_template('home.html')
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -94,8 +99,23 @@ def logout():
 @app.route('/inventory')
 @login_required
 def inventory():
-    components = Component.query.all()
-    return render_template('inventory.html', components=components)
+    all_components = Component.query.all()
+    navabarath_components = Component.query.filter(Component.location.ilike('%navabarath%')).all()
+    
+    navabarath_ids = {c.id for c in navabarath_components}
+    livestock_components = [c for c in all_components if c.id not in navabarath_ids]
+    
+    return render_template(
+        'inventory.html', 
+        livestock_components=livestock_components,
+        navabarath_components=navabarath_components
+    )
+
+@app.route('/navabarath')
+@login_required
+def navabarath():
+    navabarath_components = Component.query.filter(Component.location.ilike('%navabarath%')).all()
+    return render_template('navabarath.html', navabarath_components=navabarath_components)
 
 @app.route('/add', methods=['GET', 'POST'])
 @login_required
@@ -118,7 +138,7 @@ def add_component():
         db.session.add(new_component)
         db.session.commit()
         flash('Component added successfully!')
-        return redirect(url_for('index'))
+        return redirect(url_for('inventory'))
     return render_template('add_component.html')
 
 @app.route('/edit/<int:component_id>', methods=['GET', 'POST'])
@@ -137,7 +157,7 @@ def edit_component(component_id):
         component.used_by_for = request.form['used_by_for']
         db.session.commit()
         flash('Component updated successfully!')
-        return redirect(url_for('index'))
+        return redirect(url_for('inventory'))
     return render_template('edit_component.html', component=component)
 
 @app.route('/delete/<int:component_id>', methods=['POST'])
@@ -147,7 +167,7 @@ def delete_component(component_id):
     db.session.delete(component)
     db.session.commit()
     flash('Component deleted successfully!')
-    return redirect(url_for('index'))
+    return redirect(url_for('inventory'))
 
 @app.route('/export_csv')
 @login_required

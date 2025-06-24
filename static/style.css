@@ -1,5 +1,107 @@
-body { background-color: #f8f9fa; }
-.table th, .table td { vertical-align: middle; }
+/*
+* Professional UI Overhaul
+* Font: Poppins
+* Color Palette:
+*   - Primary: #0d6efd (Bootstrap Blue)
+*   - Secondary: #6c757d (Bootstrap Gray)
+*   - Accent: #198754 (Bootstrap Green)
+*   - Background: #f4f7f6
+*   - Text: #212529 (Dark Gray)
+*/
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f7f6;
+    color: #212529;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    flex: 1;
+}
+
+/* Navbar */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+.navbar-brand {
+    font-weight: 600;
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: all 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.card-header, .card-footer {
+    background-color: #fff;
+    border-bottom: 1px solid #dee2e6;
+}
+
+/* Buttons */
+.btn {
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Tables */
+.table {
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.table thead {
+    background-color: #0d6efd;
+    color: white;
+}
+
+.table th {
+    border-top: none;
+    border-bottom-width: 0;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #e9ecef;
+}
+
+/* Forms */
+.form-control, .form-select {
+    border-radius: 0.5rem;
+}
+
+.form-control:focus, .form-select:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    border-color: #86b7fe;
+}
+
+/* Tabs */
+.nav-tabs .nav-link {
+    font-weight: 500;
+    color: #6c757d;
+}
+
+.nav-tabs .nav-link.active {
+    color: #0d6efd;
+    background-color: #f4f7f6;
+    border-color: #dee2e6 #dee2e6 #f4f7f6;
+}
 
 /* Action buttons styling */
 .btn-sm {

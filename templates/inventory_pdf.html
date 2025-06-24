@@ -19,6 +19,7 @@
     <table>
         <thead>
             <tr>
+                <th>S.NO</th>
                 <th>ID</th>
                 <th>Name</th>
                 <th>Type</th>
@@ -34,6 +35,7 @@
         <tbody>
             {% for c in components %}
             <tr{% if c.quantity < 5 %} class="low-stock"{% endif %}>
+                <td>{{ loop.index }}</td>
                 <td>{{ c.id }}</td>
                 <td>{{ c.name }}</td>
                 <td>{{ c.type }}</td>
