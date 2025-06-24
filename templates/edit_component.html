@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Edit Component</h2>
+<form method="post">
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input type="text" name="name" class="form-control" value="{{ component.name }}" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Type</label>
+        <input type="text" name="type" class="form-control" value="{{ component.type }}" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Quantity</label>
+        <input type="number" name="quantity" class="form-control" value="{{ component.quantity }}" required min="0">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Status</label>
+        <select name="status" class="form-select" required>
+            <option value="unused" {% if component.status == 'unused' %}selected{% endif %}>Unused</option>
+            <option value="used" {% if component.status == 'used' %}selected{% endif %}>Used</option>
+            <option value="defect" {% if component.status == 'defect' %}selected{% endif %}>Defect</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Location</label>
+        <input type="text" name="location" class="form-control" value="{{ component.location }}">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Purchase Date</label>
+        <input type="date" name="purchase_date" class="form-control" value="{{ component.purchase_date }}">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Purpose</label>
+        <input type="text" name="purpose" class="form-control" value="{{ component.purpose }}">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Used By/For</label>
+        <input type="text" name="used_by_for" class="form-control" value="{{ component.used_by_for }}">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Notes</label>
+        <textarea name="notes" class="form-control">{{ component.notes }}</textarea>
+    </div>
+    <button type="submit" class="btn btn-success">Update Component</button>
+    <a href="/" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %} 

@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="mb-4">Component Inventory</h2>
+<div class="row mb-4">
+    <div class="col-md-6 mb-3 mb-md-0">
+        <div class="card h-100">
+            <div class="card-body">
+                <canvas id="statusChart" height="180"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 d-flex align-items-center">
+        <div class="card w-100">
+            <div class="card-body">
+                <h5 class="card-title mb-3">Inventory Analytics</h5>
+                <div class="row text-center">
+                    <div class="col">
+                        <div class="fw-bold">Total</div>
+                        <div>{{ total }}</div>
+                    </div>
+                    <div class="col">
+                        <div class="fw-bold">Used</div>
+                        <div>{{ used }}</div>
+                    </div>
+                    <div class="col">
+                        <div class="fw-bold">Unused</div>
+                        <div>{{ unused }}</div>
+                    </div>
+                    <div class="col">
+                        <div class="fw-bold">Defect</div>
+                        <div>{{ defect }}</div>
+                    </div>
+                    <div class="col">
+                        <div class="fw-bold text-danger">Low Stock (&lt;5)</div>
+                        <div class="text-danger">{{ low_stock }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<form class="row g-3 mb-4" method="get">
+    <div class="col-md-3">
+        <input type="text" name="name" class="form-control" placeholder="Search by name" value="{{ name }}">
+    </div>
+    <div class="col-md-3">
+        <input type="text" name="type" class="form-control" placeholder="Search by type" value="{{ type_ }}">
+    </div>
+    <div class="col-md-3">
+        <select name="status" class="form-select">
+            <option value="">All Statuses</option>
+            <option value="unused" {% if status == 'unused' %}selected{% endif %}>Unused</option>
+            <option value="used" {% if status == 'used' %}selected{% endif %}>Used</option>
+            <option value="defect" {% if status == 'defect' %}selected{% endif %}>Defect</option>
+        </select>
+    </div>
+    <div class="col-md-3 d-flex align-items-end">
+        <button type="submit" class="btn btn-primary me-2">Search</button>
+        <a href="/" class="btn btn-outline-secondary me-2">Reset</a>
+        <a href="/export_csv?name={{ name }}&type={{ type_ }}&status={{ status }}" class="btn btn-success me-2">Export CSV</a>
+        <a href="/export_pdf?name={{ name }}&type={{ type_ }}&status={{ status }}" class="btn btn-danger">Export PDF</a>
+    </div>
+</form>
+<div class="d-flex justify-content-end mb-3">
+    <a href="/add" class="btn btn-primary">Add New Component</a>
+</div>
+<div class="card">
+    <div class="card-body p-0">
+        <table class="table table-bordered table-hover mb-0 align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Quantity</th>
+                    <th>Status</th>
+                    <th>Location</th>
+                    <th>Purchase Date</th>
+                    <th>Purpose</th>
+                    <th>Permission Granted By</th>
+                    <th>Notes</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for component in components %}
+                <tr {% if component.quantity < 5 %}class="table-danger"{% endif %}>
+                    <td>{{ component.id }}</td>
+                    <td>{{ component.name }}</td>
+                    <td>{{ component.type }}</td>
+                    <td>{{ component.quantity }}</td>
+                    <td>{{ component.status }}</td>
+                    <td>{{ component.location }}</td>
+                    <td>{{ component.purchase_date }}</td>
+                    <td>{{ component.purpose }}</td>
+                    <td>{{ component.permission_granted_by }}</td>
+                    <td>{{ component.notes }}</td>
+                    <td>
+                        <a href="/edit/{{ component.id }}" class="btn btn-sm btn-warning">Edit</a>
+                        <form action="/delete/{{ component.id }}" method="post" style="display:inline-block;">
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('statusChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Used', 'Unused', 'Defect'],
+            datasets: [{
+                data: [{{ used }}, {{ unused }}, {{ defect }}],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.7)',
+                    'rgba(75, 192, 192, 0.7)',
+                    'rgba(255, 99, 132, 0.7)'
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            plugins: {
+                legend: { position: 'bottom' },
+                title: { display: true, text: 'Component Status Breakdown' }
+            }
+        }
+    });
+</script>
+{% endblock %} 

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Add New Component</h2>
+<form method="post">
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input type="text" name="name" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Type</label>
+        <input type="text" name="type" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Quantity</label>
+        <input type="number" name="quantity" class="form-control" required min="0">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Status</label>
+        <select name="status" class="form-select" required>
+            <option value="unused">Unused</option>
+            <option value="used">Used</option>
+            <option value="defect">Defect</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Location</label>
+        <input type="text" name="location" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Purchase Date</label>
+        <input type="date" name="purchase_date" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Purpose</label>
+        <input type="text" name="purpose" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Used By/For</label>
+        <input type="text" name="used_by_for" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Notes</label>
+        <textarea name="notes" class="form-control"></textarea>
+    </div>
+    <button type="submit" class="btn btn-success">Add Component</button>
+    <a href="/" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %} 

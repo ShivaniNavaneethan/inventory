@@ -1,0 +1,26 @@
+body { background-color: #f8f9fa; }
+.table th, .table td { vertical-align: middle; }
+
+/* Action buttons styling */
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+/* Table actions column */
+.table td:last-child {
+    white-space: nowrap;
+    width: 1%;
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+    .table-responsive {
+        font-size: 0.875rem;
+    }
+    
+    .btn-sm {
+        padding: 0.2rem 0.4rem;
+        font-size: 0.8rem;
+    }
+} 
