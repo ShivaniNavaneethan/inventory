@@ -117,6 +117,12 @@ def navabarath():
     navabarath_components = Component.query.filter(Component.location.ilike('%navabarath%')).all()
     return render_template('navabarath.html', navabarath_components=navabarath_components)
 
+@app.route('/companion_robot')
+@login_required
+def companion_robot():
+    companion_robot_components = Component.query.filter(Component.location.ilike('%companion robot%')).all()
+    return render_template('companion_robot.html', companion_robot_components=companion_robot_components)
+
 @app.route('/add', methods=['GET', 'POST'])
 @login_required
 def add_component():
