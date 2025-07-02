@@ -125,7 +125,16 @@ def add_component():
         type_ = request.form['type']
         quantity = int(request.form['quantity'])
         status = request.form['status']
-        location = request.form['location']
+        # Handle new location logic
+        location_select = request.form.get('location_select')
+        location = None
+        if location_select == 'other':
+            location = request.form.get('location', '').strip()
+        else:
+            location = location_select
+        if not location:
+            flash('Location is required. Please select or enter a location.')
+            return render_template('add_component.html')
         purchase_date = request.form['purchase_date']
         notes = request.form['notes']
         purpose = request.form['purpose']
@@ -138,7 +147,11 @@ def add_component():
         db.session.add(new_component)
         db.session.commit()
         flash('Component added successfully!')
-        return redirect(url_for('inventory'))
+        # Redirect based on location
+        if 'navabarath' in location.lower():
+            return redirect(url_for('navabarath'))
+        else:
+            return redirect(url_for('inventory'))
     return render_template('add_component.html')
 
 @app.route('/edit/<int:component_id>', methods=['GET', 'POST'])

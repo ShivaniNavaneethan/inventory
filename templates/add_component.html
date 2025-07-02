@@ -24,7 +24,12 @@
     </div>
     <div class="mb-3">
         <label class="form-label">Location</label>
-        <input type="text" name="location" class="form-control">
+        <select name="location_select" id="location_select" class="form-select" required onchange="toggleCustomLocation()">
+            <option value="navabarath">Navabarath</option>
+            <option value="other">Other (specify below)</option>
+        </select>
+        <input type="text" name="location" id="custom_location" class="form-control mt-2" placeholder="Enter custom location" style="display:none;">
+        <div class="form-text">Select 'Navabarath' to add to Navabarath stocks, or choose 'Other' to specify a different location.</div>
     </div>
     <div class="mb-3">
         <label class="form-label">Purchase Date</label>
@@ -45,4 +50,18 @@
     <button type="submit" class="btn btn-success">Add Component</button>
     <a href="/" class="btn btn-secondary">Cancel</a>
 </form>
+<script>
+function toggleCustomLocation() {
+    var select = document.getElementById('location_select');
+    var custom = document.getElementById('custom_location');
+    if (select.value === 'other') {
+        custom.style.display = 'block';
+        custom.required = true;
+    } else {
+        custom.style.display = 'none';
+        custom.required = false;
+        custom.value = '';
+    }
+}
+</script>
 {% endblock %} 
