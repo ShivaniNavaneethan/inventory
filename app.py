@@ -101,9 +101,11 @@ def logout():
 def inventory():
     all_components = Component.query.all()
     navabarath_components = Component.query.filter(Component.location.ilike('%navabarath%')).all()
+    companion_robot_components = Component.query.filter(Component.location.ilike('%companion robot%')).all()
     
     navabarath_ids = {c.id for c in navabarath_components}
-    livestock_components = [c for c in all_components if c.id not in navabarath_ids]
+    companion_robot_ids = {c.id for c in companion_robot_components}
+    livestock_components = [c for c in all_components if c.id not in navabarath_ids and c.id not in companion_robot_ids]
     
     return render_template(
         'inventory.html', 
@@ -156,6 +158,8 @@ def add_component():
         # Redirect based on location
         if 'navabarath' in location.lower():
             return redirect(url_for('navabarath'))
+        elif 'companion robot' in location.lower():
+            return redirect(url_for('companion_robot'))
         else:
             return redirect(url_for('inventory'))
     return render_template('add_component.html')
@@ -194,6 +198,7 @@ def export_csv():
     name = request.args.get('name', '').strip()
     type_ = request.args.get('type', '').strip()
     status = request.args.get('status', '').strip()
+    location = request.args.get('location', '').strip()
     query = Component.query
     if name:
         query = query.filter(Component.name.ilike(f'%{name}%'))
@@ -201,6 +206,8 @@ def export_csv():
         query = query.filter(Component.type.ilike(f'%{type_}%'))
     if status:
         query = query.filter(Component.status == status)
+    if location:
+        query = query.filter(Component.location.ilike(f'%{location}%'))
     components = query.all()
     data = [{
         'ID': c.id,
@@ -223,6 +230,7 @@ def export_pdf():
     name = request.args.get('name', '').strip()
     type_ = request.args.get('type', '').strip()
     status = request.args.get('status', '').strip()
+    location = request.args.get('location', '').strip()
     query = Component.query
     if name:
         query = query.filter(Component.name.ilike(f'%{name}%'))
@@ -230,6 +238,8 @@ def export_pdf():
         query = query.filter(Component.type.ilike(f'%{type_}%'))
     if status:
         query = query.filter(Component.status == status)
+    if location:
+        query = query.filter(Component.location.ilike(f'%{location}%'))
     components = query.all()
     now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
     rendered = render_template('inventory_pdf.html', components=components, now=now)

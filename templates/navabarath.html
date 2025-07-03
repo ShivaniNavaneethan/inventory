@@ -1,19 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="mb-0">Companion Robot Stock</h2>
+    <h2 class="mb-0">Navabarath Stock</h2>
     <a href="/" class="btn btn-secondary"><i class="fas fa-arrow-left me-2"></i>Back to Dashboard</a>
+</div>
+
+<div class="btn-group ms-2">
+    <a href="/export_pdf?location=Navabarath" class="btn btn-primary"><i class="fas fa-file-pdf me-2"></i>Export PDF</a>
+    <a href="/export_csv?location=Navabarath" class="btn btn-secondary"><i class="fas fa-file-csv me-2"></i>Export CSV</a>
 </div>
 
 <div class="mb-3">
     <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#addComponentForm" aria-expanded="false" aria-controls="addComponentForm">
-        <i class="fas fa-plus me-2"></i> Add New Companion Robot Component
+        <i class="fas fa-plus me-2"></i> Add New navabarath Component
     </button>
 </div>
 
 <div class="collapse" id="addComponentForm">
     <div class="card card-body mb-4 bg-light-subtle">
-        <h4>Add a New Component to Companion Robot</h4>
+        <h4>Add a New Component to navabarath</h4>
         <form method="post" action="{{ url_for('add_component') }}">
             <div class="row">
                 <div class="col-md-6 mb-3">
